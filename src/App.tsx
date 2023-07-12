@@ -1,5 +1,6 @@
 import type { Component  } from 'solid-js';
-import { createSignal, Switch, Match, createEffect } from 'solid-js';
+import { createSignal, Switch, Match } from 'solid-js';
+import { mainMath } from './math/math';
 
 type APP_STATE = 'PASS_ARGUMENTS' | 'CALCULATING' | 'SEE_RESULTS';
 
@@ -58,6 +59,11 @@ const [argumentsForm, setArgumentsForm] = createSignal<ArgumentsFormFields>({
   phi_3: 0
 });
 
+const [result, setResult] = createSignal({
+  result1: 0,
+  result2: 0,
+});
+
 const updateFormField = (formFieldKey: keyof ArgumentsFormFields, value: number) => {
   setArgumentsForm(prev => ({...prev, [formFieldKey]: value }));
 }
@@ -65,7 +71,12 @@ const updateFormField = (formFieldKey: keyof ArgumentsFormFields, value: number)
 const PassArguments: Component = () => {
   return <form onSubmit={() => {
     setAppState(() => "CALCULATING")
-    console.log(argumentsForm());
+    const { first, second } = mainMath(argumentsForm())
+    setResult({
+      result1: first,
+      result2: second
+    })
+    setAppState(() => "SEE_RESULTS")
   }}>
     <div class='my-4'>
       <label class="mx-8" for="m_01">M 1</label>
@@ -95,37 +106,22 @@ const PassArguments: Component = () => {
 
 const Calculating: Component = () => {
   return <div class='flex'>
-    <span class="loading loading-infinity loading-lg w-[200px]"></span>
+    <span class="loading loading-infinity loading-lg"></span>
   </div>
 }
 
 const SeeResults: Component = () => {
-    createEffect(() => {
-      setTimeout(() => {
-        setAppState(() => "SEE_RESULTS")
-        console.log("xd")
-      }, 4000);
-    })
-
-
-  return <div class="stats shadow stats-vertical">
-  
+  const {result1, result2} = result();
+  return (<div class="stats shadow stats-vertical">
   <div class="stat place-items-center">
     <div class="stat-title">First Value</div>
-    <div class="stat-value">31K</div>
+    <div class="stat-value">{result1}</div>
   </div>
-  
   <div class="stat place-items-center">
     <div class="stat-title">Second value</div>
-    <div class="stat-value text-secondary">4,200</div>
+    <div class="stat-value text-secondary">{result2}</div>
   </div>
-  
-  <div class="stat place-items-center">
-    <div class="stat-title">Third value</div>
-    <div class="stat-value">1,200</div>
-  </div>
-  
-</div>
+</div>)
 }
 
 export default App;
