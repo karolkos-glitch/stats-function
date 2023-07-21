@@ -1,7 +1,8 @@
-import { ArgumentsFormFields } from "../App";
+
 import { readNormalDistributionData } from "./readData";
 import calculateGamma from '@stdlib/math-base-special-gamma';
 import calculatePolygamma from '@stdlib/math-base-special-polygamma';
+import { ArgumentsFormFields } from "../components/types";
 
 export const mainMath = async ({
   m_01,
@@ -20,13 +21,13 @@ export const mainMath = async ({
     }
   );
 
-  calculateFreeEnergy();
-  calculateTrainingLoss();
-  calculateCrossValidationLoss();
-  calculateGeneralizationLoss();
-  calculateSredniaSN();
-  calculateSredniaS();
-  calculateWAIC();
+  const freeEnergy = calculateFreeEnergy();
+  const trainingLoss = calculateTrainingLoss();
+  const crossValidationsLoss = calculateCrossValidationLoss();
+  const generalizationLoss = calculateGeneralizationLoss();
+  const sredniaSN = calculateSredniaSN();
+  const sredniaS = calculateSredniaS();
+  const waic = calculateWAIC();
 
   return {
     first: yFuncValue + m_01 + m_02,
