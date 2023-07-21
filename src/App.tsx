@@ -69,9 +69,9 @@ const updateFormField = (formFieldKey: keyof ArgumentsFormFields, value: number)
 }
 
 const PassArguments: Component = () => {
-  return <form onSubmit={() => {
+  return <form onSubmit={async () => {
     setAppState(() => "CALCULATING")
-    const { first, second } = mainMath(argumentsForm())
+    const { first, second } = await mainMath(argumentsForm())
     setResult({
       result1: first,
       result2: second

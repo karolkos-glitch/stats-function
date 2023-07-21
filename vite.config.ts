@@ -11,6 +11,7 @@ export default defineConfig({
     // devtools(),
     solidPlugin(),
   ],
+  publicDir: './public',
   server: {
     port: 3000,
   },

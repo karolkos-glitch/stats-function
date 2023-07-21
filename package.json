@@ -20,6 +20,10 @@
     "vite-plugin-solid": "^2.7.0"
   },
   "dependencies": {
-    "solid-js": "^1.7.6"
+    "@stdlib/math-base-special-gamma": "^0.0.6",
+    "@stdlib/math-base-special-polygamma": "^0.0.6",
+    "chart.js": "^4.3.0",
+    "solid-js": "^1.7.6",
+    "xlsx": "^0.18.5"
   }
 }
